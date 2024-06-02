@@ -19,7 +19,8 @@ const NavBar = () => {
         <>
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/test'>All Test</Link></li>
-            
+            <li><Link to='/dashboard/profile'>Dashboard</Link></li>
+
         </>
 
 
@@ -43,6 +44,11 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
+                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                        <div className="w-10 rounded-full">
+                            <img  src={user?.photoURL} />
+                        </div>
+                    </div>
                     {
                         user ?
                             <>
