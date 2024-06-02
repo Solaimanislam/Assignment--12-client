@@ -1,7 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 import logImg from '../../assets/login.jpg';
+import Swal from 'sweetalert2';
+import { useContext } from 'react';
+import { AuthContext } from '../../Providers/AuthProvider';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+
+    const { signIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
 
     const handleLogin = event => {
         event.preventDefault();
@@ -9,6 +19,29 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
+        signIn(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                Swal.fire({
+                    title: "User Login Successfully",
+                    showClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeInUp
+                        animate__faster
+                      `
+                    },
+                    hideClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeOutDown
+                        animate__faster
+                      `
+                    }
+                });
+                navigate(from, { replace: true });
+            })
     }
 
 
@@ -41,10 +74,11 @@ const Login = () => {
                                 </label>
                             </div>
                             <div className="form-control mt-6">
-                                
+
                                 <input className="btn btn-primary" type="submit" value="Login" />
                             </div>
                         </form>
+                        <p className=' px-6 text-blue-600 text-xl'><small> New here? <Link to='/signup'> <span className='text-orange-600'>Create an account</span></Link> </small> </p>
                     </div>
                 </div>
             </div>
