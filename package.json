@@ -10,11 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.40.0",
+    "animate.css": "^4.1.1",
     "axios": "^1.7.2",
     "firebase": "^10.12.2",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "react": "^18.2.0",
+    "react-awesome-reveal": "^4.2.11",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.51.5",

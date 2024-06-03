@@ -99,14 +99,22 @@ const SignUp = () => {
                                     </select>
 
                                 </label>
-                                {/* status */}
-                                <div className="form-control  w-full my-4">
-                                    <label className="label">
+                                 {/* Status */}
+                                 <label className="form-control w-full my-4">
+                                    <div className="label">
                                         <span className="label-text">Status</span>
-                                    </label>
-                                    <input type="text" {...register("status", { required: true })} name="name" placeholder="Status" className="input input-bordered" />
-                                    {errors.name && <span className="text-red-600">Status is required</span>}
-                                </div>
+
+                                    </div>
+                                    <select defaultValue="default" {...register("Status", { require: true })}
+                                        className="select select-bordered w-full ">
+                                        <option disabled value="default">Select a Status</option>
+                                        <option value="active">Active</option>
+                                        
+                                        
+
+                                    </select>
+
+                                </label>
 
                             </div>
                             {/*  district, upazila */}

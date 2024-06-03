@@ -21,7 +21,7 @@ const TestCard = ({ item }) => {
                     }
                 </h4>
                 <div className="card-actions justify-end">
-                    <Link><button className="btn btn-primary">Details</button></Link>
+                    <Link to={`/details/${_id}`}><button className="btn btn-primary">Details</button></Link>
                 </div>
             </div>
         </div>
