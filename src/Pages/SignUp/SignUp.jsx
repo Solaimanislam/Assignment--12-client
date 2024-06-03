@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 
 const SignUp = () => {
 
-    const {createUser, updateUserProfile} = useContext(AuthContext);
+    const { createUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const {
@@ -22,24 +22,24 @@ const SignUp = () => {
     const onSubmit = (data) => {
         console.log(data)
         createUser(data.email, data.password)
-        .then(result => {
-            const loggedUser = result.user;
-            console.log(loggedUser);
-            updateUserProfile(data.name, data.photoURL)
-            .then(() => {
-                console.log('user profile photo updated');
-                reset();
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "User Created Successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                navigate('/')
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                updateUserProfile(data.name, data.photoURL)
+                    .then(() => {
+                        console.log('user profile photo updated');
+                        reset();
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "User Created Successfully",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        navigate('/')
+                    })
+                    .catch(error => console.log(error))
             })
-            .catch(error => console.log(error))
-        })
     }
 
 
@@ -56,7 +56,7 @@ const SignUp = () => {
                     </div>
                     <div className="card w-1/2 shrink-0  shadow-2xl bg-base-100">
                         <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-                        <div className="form-control">
+                            <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
@@ -77,10 +77,9 @@ const SignUp = () => {
                                 <input type="text" {...register("photoURL", { required: true })} placeholder="photo URL" className="input input-bordered" />
                                 {errors.photoURL && <span className="text-red-600">PhotoURL is required</span>}
                             </div>
-                            {/* blood group , district, upazila */}
                             <div className="flex gap-2">
                                 {/* blood group */}
-                                <label className="form-control w-full my-6">
+                                <label className="form-control w-full my-4">
                                     <div className="label">
                                         <span className="label-text">Blood Group</span>
 
@@ -100,9 +99,22 @@ const SignUp = () => {
                                     </select>
 
                                 </label>
+                                {/* status */}
+                                <div className="form-control  w-full my-4">
+                                    <label className="label">
+                                        <span className="label-text">Status</span>
+                                    </label>
+                                    <input type="text" {...register("status", { required: true })} name="name" placeholder="Status" className="input input-bordered" />
+                                    {errors.name && <span className="text-red-600">Status is required</span>}
+                                </div>
+
+                            </div>
+                            {/*  district, upazila */}
+                            <div className="flex gap-2">
+
 
                                 {/* District */}
-                                <label className="form-control w-full my-6">
+                                <label className="form-control w-full my-4">
                                     <div className="label">
                                         <span className="label-text">District</span>
 
@@ -120,7 +132,7 @@ const SignUp = () => {
 
                                 </label>
                                 {/* Upazila */}
-                                <label className="form-control w-full my-6">
+                                <label className="form-control w-full my-4">
                                     <div className="label">
                                         <span className="label-text">Upazila</span>
 
@@ -139,7 +151,7 @@ const SignUp = () => {
                                 </label>
 
                             </div>
-                            
+
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
