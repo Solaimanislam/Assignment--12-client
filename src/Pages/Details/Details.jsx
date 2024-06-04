@@ -6,15 +6,17 @@ import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useTestBooked from "../../Hooks/useTestBooked";
 
 
 
 const Details = () => {
     const cards = useLoaderData();
-    
+
     const { user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
+    const [ , refetch] = useTestBooked();
     const axiosSecure = useAxiosSecure();
     // console.log(cards);
     const { _id, } = useParams();
@@ -23,10 +25,10 @@ const Details = () => {
     const { title, image, price } = card;
     // console.log(card);
 
-    const handleBooking = test => {
+    const handleBooking = () => {
         if (user && user.email) {
             // user set to the database
-            console.log(user.email, test);
+            // console.log(user.email, test);
             const bookedItem = {
                 testId: _id,
                 email: user.email,
@@ -45,6 +47,7 @@ const Details = () => {
                             showConfirmButton: false,
                             timer: 1500
                         });
+                        refetch();
                     }
                 })
         }
@@ -98,7 +101,7 @@ const Details = () => {
                     </div>
                     <div className="card-actions justify-center">
                         <button
-                            onClick={() => handleBooking(card)}
+                            onClick={ handleBooking}
                             className="btn btn-outline bg-slate-100 border-orange-400 border-0 border-b-4 mt-4">Book Now</button>
                     </div>
                 </div>

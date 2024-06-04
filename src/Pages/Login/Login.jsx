@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import SocialLogin from '../../Components/SocialLogin/SocialLogin';
 
 const Login = () => {
 
@@ -79,6 +80,7 @@ const Login = () => {
                             </div>
                         </form>
                         <p className=' px-6 text-blue-600 text-xl'><small> New here? <Link to='/signup'> <span className='text-orange-600'>Create an account</span></Link> </small> </p>
+                        <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>

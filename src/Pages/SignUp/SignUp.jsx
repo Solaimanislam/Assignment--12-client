@@ -5,10 +5,13 @@ import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
 
 const SignUp = () => {
 
+    const axiosPublic = useAxiosPublic();
     const { createUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -20,23 +23,35 @@ const SignUp = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data)
+        // console.log(data)
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
                 updateUserProfile(data.name, data.photoURL)
                     .then(() => {
-                        console.log('user profile photo updated');
-                        reset();
-                        Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: "User Created Successfully",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        navigate('/')
+                        // console.log('user profile photo updated');
+                        // create user in database
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email,
+                        }
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log('user added to the database');
+                                    reset();
+                                    Swal.fire({
+                                        position: "center",
+                                        icon: "success",
+                                        title: "User Created Successfully",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    navigate('/')
+                                }
+                            })
+
                     })
                     .catch(error => console.log(error))
             })
@@ -99,8 +114,8 @@ const SignUp = () => {
                                     </select>
 
                                 </label>
-                                 {/* Status */}
-                                 <label className="form-control w-full my-4">
+                                {/* Status */}
+                                <label className="form-control w-full my-4">
                                     <div className="label">
                                         <span className="label-text">Status</span>
 
@@ -109,8 +124,8 @@ const SignUp = () => {
                                         className="select select-bordered w-full ">
                                         <option disabled value="default">Select a Status</option>
                                         <option value="active">Active</option>
-                                        
-                                        
+
+
 
                                     </select>
 
@@ -192,7 +207,10 @@ const SignUp = () => {
 
                             </div>
                         </form>
-                        <p className=' px-6 text-blue-600 text-xl'><small> Already have an account? <Link to='/login'> <span className='text-orange-600'>Sign in please</span></Link> </small> </p>
+                        
+                            <p className=' px-6 text-blue-600 text-xl'><small> Already have an account? <Link to='/login'> <span className='text-orange-600'>Sign in please</span></Link> </small> </p>
+                            <SocialLogin></SocialLogin>
+                        
                     </div>
                 </div>
             </div>

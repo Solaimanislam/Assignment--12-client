@@ -12,6 +12,8 @@ import Dashboard from "../Layout/Dashboard";
 import MyProfile from "../Pages/Dashboard/Profile/MyProfile";
 import Details from "../Pages/Details/Details";
 import Error from "../Pages/Error/Error";
+import MyBooking from "../Pages/MyBooking/MyBooking";
+import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 
 export const router = createBrowserRouter([
   {
@@ -47,9 +49,20 @@ export const router = createBrowserRouter([
     path: 'dashboard',
     element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
     children: [
+      // admin routes
+      {
+        path: 'users',
+        element: <AllUsers></AllUsers>
+      },
+
+      // user routes
       {
         path: 'profile',
         element: <MyProfile></MyProfile>
+      },
+      {
+        path: 'booking',
+        element: <MyBooking></MyBooking>
       }
     ]
   }

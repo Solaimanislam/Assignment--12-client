@@ -1,14 +1,14 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
-import useTestBooked from "../../../Hooks/useTestBooked";
+// import useTestBooked from "../../../Hooks/useTestBooked";
 
 
 const NavBar = () => {
 
 
     const { user, logOut } = useContext(AuthContext);
-    const [booked] = useTestBooked();
+    // const [booked] = useTestBooked();
 
 
     const handleLogout = () => {
@@ -22,12 +22,12 @@ const NavBar = () => {
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/test'>All Test</Link></li>
             <li><Link to='/dashboard/profile'>Dashboard</Link></li>
-            <li><Link to='/'>
+            {/* <li><Link to='/dashboard/booking'>
                 <button className="">
                     Booking
                     <div className="badge bg-pink-500">+{booked.length}</div>
                 </button>
-            </Link></li>
+            </Link></li> */}
 
         </>
 
