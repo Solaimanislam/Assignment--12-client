@@ -17,6 +17,7 @@ import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AddTest from "../Pages/Dashboard/AddTest/AddTest";
 import AdminRoute from "./AdminRoute";
 import AllTestD from "../Pages/Dashboard/AllTest/AllTestD";
+import UpdateItem from "../Pages/Dashboard/UpdateItem/UpdateItem";
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +65,11 @@ export const router = createBrowserRouter([
       {
         path: 'addTest',
         element: <AdminRoute><AddTest></AddTest></AdminRoute>
+      },
+      {
+        path: 'updateItem/:id',
+        element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
+        loader: ({params}) => fetch(`http://localhost:5000/test/${params.id}`)
       },
 
       // user routes
