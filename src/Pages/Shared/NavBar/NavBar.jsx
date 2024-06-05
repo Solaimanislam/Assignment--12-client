@@ -21,7 +21,7 @@ const NavBar = () => {
         <>
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/test'>All Test</Link></li>
-            <li><Link to='/dashboard/profile'>Dashboard</Link></li>
+            <li><Link to='/dashboard/users'>Dashboard</Link></li>
             {/* <li><Link to='/dashboard/booking'>
                 <button className="">
                     Booking

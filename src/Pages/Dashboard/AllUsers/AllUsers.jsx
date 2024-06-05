@@ -3,6 +3,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 import { FaUsers } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 
 const AllUsers = () => {
@@ -55,8 +56,11 @@ const AllUsers = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>SI | All Users</title>
+            </Helmet>
             <div className=" flex justify-evenly my-4">
-                <h2 className="text-3xl">All Users: </h2>
+                <h2 className="text-3xl">All Users </h2>
                 <h2 className="text-3xl">Total Users:{users.length} </h2>
             </div>
             <div className="overflow-x-auto">

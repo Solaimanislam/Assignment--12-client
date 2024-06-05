@@ -6,11 +6,12 @@ import { FcStatistics } from "react-icons/fc";
 import { GiHypodermicTest, GiKnightBanner, GiVerticalBanner } from "react-icons/gi";
 import { IoMdContact } from "react-icons/io";
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../Hooks/useAdmin";
 
 
 const Dashboard = () => {
 
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
 
     return (
         <div className="flex">
