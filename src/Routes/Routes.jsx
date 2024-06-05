@@ -16,6 +16,7 @@ import MyBooking from "../Pages/MyBooking/MyBooking";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AddTest from "../Pages/Dashboard/AddTest/AddTest";
 import AdminRoute from "./AdminRoute";
+import AllTestD from "../Pages/Dashboard/AllTest/AllTestD";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
       {
         path: 'users',
         element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+      },
+      {
+        path: 'allTest',
+        element: <AdminRoute><AllTestD></AllTestD></AdminRoute>
       },
       {
         path: 'addTest',

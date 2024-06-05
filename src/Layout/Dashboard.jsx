@@ -27,7 +27,7 @@ const Dashboard = () => {
                                     <NavLink to="/dashboard/addTest"><FaRegNoteSticky />Add a Test</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/test"><GiHypodermicTest /> All Tests</NavLink>
+                                    <NavLink to="/dashboard/allTest"><GiHypodermicTest /> All Tests</NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/dashboard/reservation"><BsChatSquareQuoteFill />Reservation</NavLink>
