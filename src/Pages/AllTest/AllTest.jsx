@@ -20,7 +20,7 @@ const AllTest = () => {
             ></SectionTitle>
             <div className=" grid md:grid-cols-2 gap-10">
                 {
-                    test.map(item => <TestCard 
+                    test?.map(item => <TestCard 
                         key={item._id}
                         item={item}
                     ></TestCard>)

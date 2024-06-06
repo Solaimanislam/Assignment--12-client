@@ -18,6 +18,7 @@ import AddTest from "../Pages/Dashboard/AddTest/AddTest";
 import AdminRoute from "./AdminRoute";
 import AllTestD from "../Pages/Dashboard/AllTest/AllTestD";
 import UpdateItem from "../Pages/Dashboard/UpdateItem/UpdateItem";
+import Payment from "../Pages/Dashboard/Payment/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -78,9 +79,14 @@ export const router = createBrowserRouter([
         element: <MyProfile></MyProfile>
       },
       {
-        path: 'booking',
-        element: <MyBooking></MyBooking>
+        path: 'payment/:id',
+        element: <Payment></Payment>
+
       }
+      // {
+      //   path: 'booking',
+      //   element: <MyBooking></MyBooking>
+      // }
     ]
   }
 ]);

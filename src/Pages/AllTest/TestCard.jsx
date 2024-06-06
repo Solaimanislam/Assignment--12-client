@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const TestCard = ({ item }) => {
     console.log(item);
 
-    const {_id, image, title, short_description, date, slots } = item;
+    const { _id, image, title, short_description, date, slots } = item;
 
     return (
         <div className="card card-compact bg-base-100 shadow-xl">
@@ -17,7 +17,7 @@ const TestCard = ({ item }) => {
                 <p className="text-green-400 text-lg">Description: {short_description}</p>
                 <h4 className=" text-xl text-amber-600 items-center mx-auto">Slots:
                     {
-                        slots.map(slot => <li key={slot.id}>{slot}</li>)
+                        slots?.map(slot => <li key={slot._id}>{slot}</li>)
                     }
                 </h4>
                 <div className="card-actions justify-end">
