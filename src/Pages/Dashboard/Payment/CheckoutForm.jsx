@@ -5,6 +5,7 @@ import useAuth from "../../../Hooks/useAuth";
 import useTest from "../../../Hooks/useTest";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useTestBooked from "../../../Hooks/useTestBooked";
 
 
 const CheckoutForm = ({id}) => {
@@ -15,8 +16,9 @@ const CheckoutForm = ({id}) => {
     const stripe = useStripe();
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
-    // const { user } = useAuth();
-    const [test, refetch] = useTest();
+    const { user } = useAuth();
+    const [test] = useTest();
+    const [booked] = useTestBooked();
     
 
     const tId = test.find(t => t._id === id);
@@ -24,7 +26,7 @@ const CheckoutForm = ({id}) => {
 
     const totalPrice = tId?.price;
     console.log(totalPrice);
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (totalPrice > 0) {
@@ -64,53 +66,53 @@ const CheckoutForm = ({id}) => {
             setError('');
         }
 
-        // // confirm payment
-        // const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
-        //     payment_method: {
-        //         card: card,
-        //         billing_details: {
-        //             email: user?.email || 'anonymous',
-        //             name: user?.displayName || 'anonymous'
-        //         }
-        //     }
-        // })
-        // if (confirmError) {
-        //     console.log('confirm error');
-        // }
-        // else {
-        //     console.log('Payment intent', paymentIntent);
-        //     if (paymentIntent.status === 'succeeded') {
-        //         console.log('transaction id', paymentIntent.id);
-        //         setTransactionId(paymentIntent.id);
+        // confirm payment
+        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    email: user?.email || 'anonymous',
+                    name: user?.displayName || 'anonymous'
+                }
+            }
+        })
+        if (confirmError) {
+            console.log('confirm error');
+        }
+        else {
+            console.log('Payment intent', paymentIntent);
+            if (paymentIntent.status === 'succeeded') {
+                console.log('transaction id', paymentIntent.id);
+                setTransactionId(paymentIntent.id);
 
-        //         // now save the payment in the database
+                // now save the payment in the database
 
-        //         const payment = {
-        //             email: user.email,
-        //             price: totalPrice,
-        //             transactionId: paymentIntent.id,
-        //             date: new Date(),
-        //             cartIds: test.map(item => item._id),
-        //             menuItemIds: test.map(item => item.menuId),
-        //             status: 'pending'
-        //         }
-        //         const res = await axiosSecure.post('/payments', payment);
-        //         console.log('payment saved', res.data);
-        //         refetch();
-        //         if(res.data?.paymentResult?.insertedId){
-        //             Swal.fire({
-        //                 position: "top-end",
-        //                 icon: "success",
-        //                 title: "Your Payment is successful!",
-        //                 showConfirmButton: false,
-        //                 timer: 1500
-        //               });
-        //               navigate('/dashboard/paymentHistory');
+                const payment = {
+                    email: user.email,
+                    price: totalPrice,
+                    transactionId: paymentIntent.id,
+                    date: new Date(),
+                    cartIds: test.map(item => item._id),
+                    testItemIds: booked.map(item => item.testId),
+                    status: 'pending'
+                }
+                const res = await axiosSecure.post('/payments', payment);
+                // console.log('payment saved', res.data);
+                // refetch();
+                if(res.data?.insertedId){
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your Payment & Booked are successful!",
+                        showConfirmButton: false,
+                        timer: 1500
+                      });
+                    //   navigate('/dashboard/paymentHistory');
                       
-        //         }
+                }
 
-        //     }
-        // }
+            }
+        }
 
     }
 

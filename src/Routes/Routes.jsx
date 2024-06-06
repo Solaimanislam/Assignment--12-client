@@ -64,6 +64,10 @@ export const router = createBrowserRouter([
         element: <AdminRoute><AllTestD></AllTestD></AdminRoute>
       },
       {
+        path: 'booking',
+        element: <AdminRoute><MyBooking></MyBooking></AdminRoute>
+      },
+      {
         path: 'addTest',
         element: <AdminRoute><AddTest></AddTest></AdminRoute>
       },
@@ -83,10 +87,7 @@ export const router = createBrowserRouter([
         element: <Payment></Payment>
 
       }
-      // {
-      //   path: 'booking',
-      //   element: <MyBooking></MyBooking>
-      // }
+      
     ]
   }
 ]);

@@ -30,7 +30,7 @@ const Dashboard = () => {
                                     <NavLink to="/dashboard/allTest"><GiHypodermicTest /> All Tests</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/reservation"><BsChatSquareQuoteFill />Reservation</NavLink>
+                                    <NavLink to="/dashboard/booking"><BsChatSquareQuoteFill />Reservation</NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/dashboard/banner"><GiKnightBanner />Add Banner</NavLink>

@@ -9,7 +9,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
 const Payment = () => {
 
 const {id} = useParams();
-console.log(id);
+// console.log(id);
  
     return (
         <div className="lg:ml-10">
