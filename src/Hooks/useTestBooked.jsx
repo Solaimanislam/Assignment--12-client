@@ -12,7 +12,8 @@ const useTestBooked = () => {
     const { refetch, data: book = [] } = useQuery({
         queryKey: ['book', user?.email],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/booked?email=${user.email}`);
+            // const res = await axiosSecure.get(`/booked?email=${user.email}`);
+            const res = await axiosSecure.get('/payment');
             return res.data;
         }
 

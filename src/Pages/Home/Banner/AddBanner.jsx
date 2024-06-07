@@ -104,7 +104,7 @@ const AddBanner = () => {
                             <select defaultValue="default" {...register("status", { require: true })}
                                 className="select select-bordered w-full ">
                                 <option disabled value="default">Select a status</option>
-                                <option value="true">isActive</option>
+                                <option value="false">isActive</option>
 
                             </select>
 

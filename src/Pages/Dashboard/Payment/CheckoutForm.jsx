@@ -25,7 +25,7 @@ const CheckoutForm = ({id}) => {
     // console.log(tId);
 
     const totalPrice = tId?.price;
-    console.log(totalPrice);
+    // console.log(totalPrice);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -89,6 +89,8 @@ const CheckoutForm = ({id}) => {
 
                 const payment = {
                     email: user.email,
+                    title: tId.title,
+                    image: tId.image,
                     price: totalPrice,
                     transactionId: paymentIntent.id,
                     date: new Date(),

@@ -34,7 +34,7 @@ const MyBooking = () => {
                 //     Swal.fire({
                 //         position: "top-end",
                 //         icon: "success",
-                //         title: `${user.name} is an blocked now!`,
+                //         title: `${user.name} is an canceled now!`,
                 //         showConfirmButton: false,
                 //         timer: 1500
                 //     });
@@ -61,8 +61,8 @@ const MyBooking = () => {
                                     #
                                 </th>
                                 <th>Image</th>
+                                <th>Test Name</th>
                                 <th>Email</th>
-                                <th>Name</th>
                                 <th>Price</th>
                                 <th>Action</th>
                             </tr>
@@ -82,18 +82,19 @@ const MyBooking = () => {
                                             </div>
 
                                         </div>
-                                    </td>
-                                    <td>
-                                        {item.email}
+                                        
                                     </td>
                                     <td>
                                         {item.title}
                                     </td>
+                                    <td>
+                                        {item.email}
+                                    </td>
                                     <td>${item.price}</td>
                                     <td>
-                                    { user.status === 'canceled' ? 'canceled' : <button
+                                    { user.status === 'pending' ? 'canceled' : <button
                                         onClick={() => handleCanceled(user)}
-                                        className="btn btn-ghost btn-md bg-purple-400">Cancel</button>}
+                                        className="btn btn-ghost btn-md bg-purple-400">{item.status}</button>}
                                 </td>
                                 </tr>)
                             }

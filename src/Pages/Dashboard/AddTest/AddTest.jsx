@@ -29,6 +29,7 @@ const AddTest = () => {
                 price: parseFloat(data.price),
                 date: data.date,
                 slots: data.slots,
+                
                 short_description: data.short_description,
                 image: res.data.data.display_url
             }

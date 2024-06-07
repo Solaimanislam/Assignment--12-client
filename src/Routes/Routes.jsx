@@ -20,6 +20,8 @@ import AllTestD from "../Pages/Dashboard/AllTest/AllTestD";
 import UpdateItem from "../Pages/Dashboard/UpdateItem/UpdateItem";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import AddBanner from "../Pages/Home/Banner/AddBanner";
+import AllBanner from "../Pages/Home/Banner/AllBanner";
+import Statistics from "../Pages/Dashboard/Statistics/Statistics";
 
 export const router = createBrowserRouter([
   {
@@ -65,8 +67,16 @@ export const router = createBrowserRouter([
         element: <AdminRoute><AllTestD></AllTestD></AdminRoute>
       },
       {
+        path: 'statistics',
+        element: <AdminRoute><Statistics></Statistics></AdminRoute>
+      },
+      {
         path: 'booking',
         element: <AdminRoute><MyBooking></MyBooking></AdminRoute>
+      },
+      {
+        path: 'allBanner',
+        element: <AdminRoute><AllBanner></AllBanner></AdminRoute>
       },
       {
         path: 'addTest',
