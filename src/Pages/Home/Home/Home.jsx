@@ -1,13 +1,14 @@
 import { Helmet } from "react-helmet-async";
+import Banner from "../Banner/Banner";
 
 
 const Home = () => {
     return (
         <div>
             <Helmet>
-                <title>SI | Login</title>
+                <title>SI | Home</title>
             </Helmet>
-            <h2 className=" text-3xl">this is home</h2>
+            <Banner></Banner>
         </div>
     );
 };

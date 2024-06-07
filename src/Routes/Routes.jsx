@@ -19,6 +19,7 @@ import AdminRoute from "./AdminRoute";
 import AllTestD from "../Pages/Dashboard/AllTest/AllTestD";
 import UpdateItem from "../Pages/Dashboard/UpdateItem/UpdateItem";
 import Payment from "../Pages/Dashboard/Payment/Payment";
+import AddBanner from "../Pages/Home/Banner/AddBanner";
 
 export const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ export const router = createBrowserRouter([
       {
         path: 'addTest',
         element: <AdminRoute><AddTest></AddTest></AdminRoute>
+      },
+      {
+        path: 'addBanner',
+        element: <AdminRoute><AddBanner></AddBanner></AdminRoute>
       },
       {
         path: 'updateItem/:id',
