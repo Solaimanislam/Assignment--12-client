@@ -6,16 +6,19 @@ import { AuthContext } from '../../Providers/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SocialLogin from '../../Components/SocialLogin/SocialLogin';
 import useAdmin from '../../Hooks/useAdmin';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
 const Login = () => {
 
-    const { signIn } = useContext(AuthContext);
+    const { signIn, loading } = useContext(AuthContext);
     const navigate = useNavigate();
-    const location = useLocation();
+    // const location = useLocation();
+    const axiosSecure = useAxiosSecure();
     const [isAdmin] = useAdmin();
+    
 
-    const from = location.state?.from?.pathname || "/dashboard/profile";
-    const fromAdmin = location.state?.from?.pathname || "/dashboard/users";
+    // const from = location.state?.from?.pathname || "/dashboard/profile";
+    // const fromAdmin = location.state?.from?.pathname || "/dashboard/users";
 
     const handleLogin = event => {
         event.preventDefault();
@@ -44,9 +47,28 @@ const Login = () => {
                       `
                     }
                 });
-                {
-                    isAdmin ?  navigate(fromAdmin, { replace: true }) : navigate(from, { replace: true }) ;
-                }
+                // console.log(isAdmin);
+                axiosSecure.post('/jwt')
+                .then(res => {
+                    console.log(res.data);
+                })
+                 axiosSecure.get(`/users/admin/${user.email}`)
+                .then(res => {
+                    console.log(res.data);
+                    if(isAdmin){
+                        navigate('/dashboard/users')
+                        loading
+                    }
+                    else {
+                        navigate('/dashboard/profile')
+                        loading
+                    }
+                })
+                console.log(isAdmin);
+                
+                // console.log(res.data);
+                // return res.data?.admin;
+                
             })
     }
 

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import useAdmin from "../../../Hooks/useAdmin";
+import useUsers from "../../../Hooks/useUsers";
 // import useTestBooked from "../../../Hooks/useTestBooked";
 
 
@@ -11,6 +12,10 @@ const NavBar = () => {
     const { user, logOut } = useContext(AuthContext);
     // const [booked] = useTestBooked();
     const [isAdmin] = useAdmin();
+    const [users] = useUsers();
+
+    const userEmail = users.find( item => item?.email === user?.email);
+    console.log(userEmail);
 
 
     const handleLogout = () => {
@@ -61,7 +66,7 @@ const NavBar = () => {
                 <div className="navbar-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            <img src={user?.photoURL} />
+                            <img src={userEmail?.image} />
                         </div>
                     </div>
                     {

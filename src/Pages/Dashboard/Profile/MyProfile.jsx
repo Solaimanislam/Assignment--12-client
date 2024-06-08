@@ -10,7 +10,7 @@ const MyProfile = () => {
     console.log(users);
     // console.log(user);
 
-    const userEmail = users.find( user => user.email === users.email);
+    const userEmail = users.find(item => item.email === user.email);
     console.log(userEmail);
 
     return (
@@ -27,11 +27,21 @@ const MyProfile = () => {
             </h3>
             <div className="hero min-h-screen bg-base-200">
                 <div className="hero-content flex-col">
-                    <img src={user.image} className="max-w-sm rounded-lg shadow-2xl" />
+                    <img src={userEmail?.image} className="max-w-sm rounded-lg shadow-2xl" />
                     <div>
-                        <h1 className="text-5xl font-bold">Box Office News!</h1>
-                        <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-                        <button className="btn btn-primary">Get Started</button>
+                        <div className="flex justify-evenly gap-8">
+                            <h2 className="text-xl font-semibold text-purple-600">Name: {userEmail?.name}</h2>
+                            <h2 className="text-xl font-semibold text-orange-600">Email: {userEmail?.email}</h2>
+                        </div>
+                        <div className="flex justify-evenly gap-8">
+                            <h2 className="text-xl font-semibold text-red-500">Blood: {userEmail?.blood}</h2>
+                            <h2 className="text-xl font-semibold text-sky-500">Status: {userEmail?.Status}</h2>
+                        </div>
+                        <div className="flex justify-evenly gap-8">
+                            <h2 className="text-xl font-semibold text-green-400">
+                                District: {userEmail?.District}</h2>
+                            <h2 className="text-xl font-semibold text-amber-600">Upazila: {userEmail?.upazila}</h2>
+                        </div>
                     </div>
                 </div>
             </div>
