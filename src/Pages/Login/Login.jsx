@@ -5,14 +5,17 @@ import { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SocialLogin from '../../Components/SocialLogin/SocialLogin';
+import useAdmin from '../../Hooks/useAdmin';
 
 const Login = () => {
 
     const { signIn } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
+    const [isAdmin] = useAdmin();
 
-    const from = location.state?.from?.pathname || "/";
+    const from = location.state?.from?.pathname || "/dashboard/profile";
+    const fromAdmin = location.state?.from?.pathname || "/dashboard/users";
 
     const handleLogin = event => {
         event.preventDefault();
@@ -41,7 +44,9 @@ const Login = () => {
                       `
                     }
                 });
-                navigate(from, { replace: true });
+                {
+                    isAdmin ?  navigate(fromAdmin, { replace: true }) : navigate(from, { replace: true }) ;
+                }
             })
     }
 

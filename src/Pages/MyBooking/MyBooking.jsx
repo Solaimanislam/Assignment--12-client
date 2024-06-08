@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import SectionTitle from "../../Components/SectionTitle/SectionTitle";
 import useTestBooked from "../../Hooks/useTestBooked";
 
-import useAuth from "../../Hooks/useAuth";
+// import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
@@ -11,34 +11,37 @@ import Swal from "sweetalert2";
 const MyBooking = () => {
 
     const [booked] = useTestBooked();
-    const {user} = useAuth();
+    // const {user} = useAuth();
     console.log(booked);
 
     const axiosSecure = useAxiosSecure();
 
-    const { data: users = [], refetch } = useQuery({
-        queryKey: ['users'],
+    const { data: payment = [], refetch } = useQuery({
+        
+        queryKey: ['payment'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/users');
+            const res = await axiosSecure.get('/payment');
             return res.data;
 
         }
     });
+    console.log(payment);
 
     const handleCanceled = user => {
-        axiosSecure.patch(`/users/cancel/${user._id}`)
+        // console.log('clicked');
+        axiosSecure.patch(`/payment/cancel/${user._id}`)
             .then(res => {
                 console.log(res.data);
-                // if (res.data.modifiedCount > 0) {
-                //     refetch();
-                //     Swal.fire({
-                //         position: "top-end",
-                //         icon: "success",
-                //         title: `${user.name} is an canceled now!`,
-                //         showConfirmButton: false,
-                //         timer: 1500
-                //     });
-                // }
+                if (res.data.modifiedCount > 0) {
+                    refetch();
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `${user.title} is an canceled now!`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
             })
     }
 
@@ -70,6 +73,7 @@ const MyBooking = () => {
                         <tbody>
                             {
                                 booked.map((item, index) => <tr key={item._id}>
+                                    
                                     <th>
                                         {index + 1}
                                     </th>
@@ -92,9 +96,9 @@ const MyBooking = () => {
                                     </td>
                                     <td>${item.price}</td>
                                     <td>
-                                    { user.status === 'pending' ? 'canceled' : <button
-                                        onClick={() => handleCanceled(user)}
-                                        className="btn btn-ghost btn-md bg-purple-400">{item.status}</button>}
+                                    { item.status === 'pending' ?  <button
+                                        onClick={() => handleCanceled(item)}
+                                        className="btn btn-ghost btn-md bg-purple-400">{item.status}</button> : <button className="btn btn-ghost btn-md bg-red-400">Canceled</button>}
                                 </td>
                                 </tr>)
                             }

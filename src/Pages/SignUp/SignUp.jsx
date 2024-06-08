@@ -8,7 +8,8 @@ import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
-
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const SignUp = () => {
 
     const axiosPublic = useAxiosPublic();
@@ -22,8 +23,15 @@ const SignUp = () => {
         formState: { errors },
     } = useForm();
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         // console.log(data)
+        // image upload to imgbb and then get an url
+        const imageFile = { image: data.image[0] }
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
@@ -35,6 +43,13 @@ const SignUp = () => {
                         const userInfo = {
                             name: data.name,
                             email: data.email,
+                            blood: data.blood,
+                            Status: data.Status,
+                            District: data.District,
+                            upazila: data.upazila,
+                            image: res.data.data.display_url
+
+
                         }
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
@@ -48,13 +63,15 @@ const SignUp = () => {
                                         showConfirmButton: false,
                                         timer: 1500
                                     });
-                                    navigate('/')
+                                    navigate('/dashboard/profile')
                                 }
                             })
 
                     })
                     .catch(error => console.log(error))
             })
+
+            console.log('with image url', res.data);
     }
 
 
@@ -85,13 +102,13 @@ const SignUp = () => {
                                 <input type="text" {...register("name", { required: true })} name="name" placeholder="Name" className="input input-bordered" />
                                 {errors.name && <span className="text-red-600">Name is required</span>}
                             </div>
-                            <div className="form-control">
+                            {/* <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Photo URL</span>
                                 </label>
                                 <input type="text" {...register("photoURL", { required: true })} placeholder="photo URL" className="input input-bordered" />
                                 {errors.photoURL && <span className="text-red-600">PhotoURL is required</span>}
-                            </div>
+                            </div> */}
                             <div className="flex gap-2">
                                 {/* blood group */}
                                 <label className="form-control w-full my-4">
@@ -202,15 +219,20 @@ const SignUp = () => {
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
                             </div>
+                            {/* file input */}
+
+                            <div className="form-control w-full my-6">
+                                <input type="file" {...register('image', { require: true })} className="file-input w-full max-w-xs" />
+                            </div>
                             <div className="form-control mt-6">
                                 <input className="btn btn-primary" type="submit" value="Sign Up" />
 
                             </div>
                         </form>
-                        
-                            <p className=' px-6 text-blue-600 text-xl'><small> Already have an account? <Link to='/login'> <span className='text-orange-600'>Sign in please</span></Link> </small> </p>
-                            <SocialLogin></SocialLogin>
-                        
+
+                        <p className=' px-6 text-blue-600 text-xl'><small> Already have an account? <Link to='/login'> <span className='text-orange-600'>Sign in please</span></Link> </small> </p>
+                        <SocialLogin></SocialLogin>
+
                     </div>
                 </div>
             </div>

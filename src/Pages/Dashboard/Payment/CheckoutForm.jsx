@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
 import useTest from "../../../Hooks/useTest";
-import { useNavigate } from "react-router-dom";
+
 import Swal from "sweetalert2";
 import useTestBooked from "../../../Hooks/useTestBooked";
 
@@ -26,7 +26,7 @@ const CheckoutForm = ({id}) => {
 
     const totalPrice = tId?.price;
     // console.log(totalPrice);
-    const navigate = useNavigate();
+    
 
     useEffect(() => {
         if (totalPrice > 0) {
@@ -109,7 +109,7 @@ const CheckoutForm = ({id}) => {
                         showConfirmButton: false,
                         timer: 1500
                       });
-                    //   navigate('/dashboard/paymentHistory');
+                    
                       
                 }
 
