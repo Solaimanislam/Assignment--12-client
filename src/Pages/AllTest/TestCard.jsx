@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const TestCard = ({ item }) => {
     // console.log(item);
 
-    const { _id, image, title, short_description, date, slots } = item;
+    const { _id, image, title, short_description, duration, date, slots } = item;
 
     return (
         <div className="card card-compact bg-base-100 shadow-xl">
@@ -15,11 +15,12 @@ const TestCard = ({ item }) => {
                     <h2 className="card-title text-orange-400">Date: {date}</h2>
                 </div>
                 <p className="text-green-400 text-lg">Description: {short_description}</p>
-                <h4 className=" text-xl text-amber-600 items-center mx-auto">Slots:
-                    {
-                        slots?.map(slot => <li key={slot._id}>{slot}</li>)
-                    }
-                </h4>
+                <div className=" flex justify-between">
+                    <h4 className=" text-xl text-amber-600">Slots: {slots} </h4>
+                    <h4 className=" text-xl text-red-600">Slots: {duration} </h4>
+                </div>
+
+
                 <div className="card-actions justify-end">
                     <Link to={`/details/${_id}`}><button className="btn btn-primary">Details</button></Link>
                 </div>

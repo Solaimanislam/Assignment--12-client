@@ -17,7 +17,7 @@ const Featured = () => {
                     <p>May 20, 2029</p>
                     <p className=" uppercase">Where can i get some</p>
                     <p>SI Diagnostic Center is dedicated to providing state-of-the-art diagnostic services. Our mission is to deliver accurate and timely results to aid in the early detection and treatment of diseases.</p>
-                    <button className="btn btn-outline bg-pink-500 border-0 border-b-4 mt-4">Order Now</button>
+                    <button className="btn btn-outline bg-pink-500 border-0 border-b-4 mt-4">Book Now</button>
                 </div>
             </div>
         </div>

@@ -29,7 +29,9 @@ const AddTest = () => {
                 price: parseFloat(data.price),
                 date: data.date,
                 slots: data.slots,
-                
+                duration: data.duration,
+                location: data.location,
+                requirements: data.requirements,
                 short_description: data.short_description,
                 image: res.data.data.display_url
             }
@@ -65,7 +67,7 @@ const AddTest = () => {
             <div>
                 <form className="lg:ml-12 mb-6" onSubmit={handleSubmit(onSubmit)}>
 
-                    <label className="form-control w-full my-6">
+                    <label className="form-control w-full my-2">
                         <div className="label">
                             <span className="label-text">Test Name</span>
 
@@ -77,7 +79,7 @@ const AddTest = () => {
 
 
                         {/* price */}
-                        <label className="form-control w-full my-6">
+                        <label className="form-control w-full my-2">
                             <div className="label">
                                 <span className="label-text">Price</span>
 
@@ -87,7 +89,7 @@ const AddTest = () => {
                         </label>
 
                         {/* date */}
-                        <label className="form-control w-full my-6">
+                        <label className="form-control w-full my-2">
                             <div className="label">
                                 <span className="label-text">Date</span>
 
@@ -97,8 +99,41 @@ const AddTest = () => {
                         </label>
 
                     </div>
+                    <div className="flex gap-6">
+
+
+                        {/* duration */}
+                        <label className="form-control w-full my-2">
+                            <div className="label">
+                                <span className="label-text">Duration</span>
+
+                            </div>
+                            <input type="text" placeholder="duration" {...register("duration", { require: true })} className="input input-bordered w-full " />
+
+                        </label>
+
+                        {/*location */}
+                        <label className="form-control w-full my-2">
+                            <div className="label">
+                                <span className="label-text">Location</span>
+
+                            </div>
+                            <input type="text" placeholder="write location" {...register("location", { require: true })} className="input input-bordered w-full " />
+
+                        </label>
+                        {/*requirements */}
+                        <label className="form-control w-full my-2">
+                            <div className="label">
+                                <span className="label-text">Requirements</span>
+
+                            </div>
+                            <input type="text" placeholder="write requirements" {...register("requirements", { require: true })} className="input input-bordered w-full " />
+
+                        </label>
+
+                    </div>
                     {/* slots */}
-                    <label className="form-control w-full my-6">
+                    <label className="form-control w-full my-2">
                         <div className="label">
                             <span className="label-text">Slots</span>
 

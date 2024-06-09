@@ -87,10 +87,8 @@ const Details = () => {
                         <h2 className="card-title text-orange-400">Date: {card.date}</h2>
                     </div>
                     <p className="text-green-700 text-lg">Description: {card.short_description}</p>
-                    <h4 className=" text-xl text-amber-600 items-center mx-auto">Slots:
-                        {
-                            card.slots?.map(slot => <li key={slot.id}>{slot}</li>)
-                        }
+                    <h4 className=" text-xl text-amber-600 items-center mx-auto">Slots: {card.slots}
+                        
                     </h4>
                     <div className=" flex justify-between">
                         <h2 className="card-title text-violet-800">Duration: {card.duration}</h2>

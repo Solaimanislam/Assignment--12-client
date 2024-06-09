@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAuth from "../../../Hooks/useAuth";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -12,6 +13,8 @@ const AddBanner = () => {
     const { register, handleSubmit, reset } = useForm();
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
+    const {user} = useAuth();
+    console.log(user);
 
     const onSubmit = async (data) => {
         console.log(data);
@@ -25,6 +28,7 @@ const AddBanner = () => {
         if(res.data.success){
              // now send the banner item data to the server with the image 
              const bannerItem = {
+                email: user?.email,
                 title: data.title,
                 price: parseFloat(data.price),
                 couponCode: data.couponCode,
@@ -70,6 +74,14 @@ const AddBanner = () => {
 
                         </div>
                         <input type="text" placeholder="Test Name" {...register("title", { require: true })} className="input input-bordered w-full " />
+
+                    </label>
+                    <label className="form-control w-full my-2">
+                        <div className="label">
+                            <span className="label-text text-lg font-medium text-orange-600 ">Email</span>
+
+                        </div>
+                        <input type="email" disabled defaultValue={user?.email} placeholder="Email Address" {...register("email", { require: true })} className="input input-bordered w-full " />
 
                     </label>
                     <div className="flex gap-6">

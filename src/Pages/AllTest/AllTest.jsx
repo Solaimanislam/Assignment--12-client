@@ -8,44 +8,65 @@ import axios from "axios";
 
 const AllTest = () => {
 
-    const [itemsPerPage, setItemsPerPage] = useState(2);
+    const [itemsPerPage, setItemsPerPage] = useState(4);
     const [count, setCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [test] = useTest();
     const [allTest, setAllTest] = useState([]);
+    const [filter, setFilter] = useState('');
+    const [sort, setSort] = useState('');
+    const [search, setSearch] = useState('');
+    const [searchText, setSearchText] = useState('');
     const length = test.length;
     const numberOfPage = Math.ceil(length / itemsPerPage);
     // console.log(length);
 
     useEffect(() => {
         const getCount = async () => {
-            const {data} = await axios(`http://localhost:5000/all-test?page=${currentPage}&size=${itemsPerPage}`)
+            console.log(itemsPerPage, currentPage);
+            const { data } = await axios(`http://localhost:5000/all-test?page=${currentPage}&size=${itemsPerPage}&filter=${filter}&sort=${sort}&search=${search}`)
+            setAllTest(data);
             console.log(data);
-            setCount(data)
+
         }
         getCount();
-    }, [currentPage, itemsPerPage])
+    }, [currentPage, filter, itemsPerPage, search, sort])
 
 
     useEffect(() => {
         const getCount = async () => {
-            const {data} = await axios('http://localhost:5000/test-count')
+            const { data } = await axios(`http://localhost:5000/test-count?filter=${filter}&search=${search}`)
             setCount(data.count)
         }
         getCount();
-    }, [])
+    }, [filter, search])
 
     console.log(count);
 
 
     const pages = [...Array(numberOfPage).keys()].map(element => element + 1);
     // const pages = [1, 2, 3, 4, 5];
+    console.log(pages);
 
     // handle pagination 
     const handlePaginationButton = (value) => {
-        console.log(value);
+        // console.log(value);
         setCurrentPage(value);
     }
+
+    const handleReset = () => {
+        setFilter('')
+        setSort('')
+        setSearch('')
+        setSearchText('')
+    }
+
+    const handleSearch = e => {
+        e.preventDefault();
+        
+        setSearch(searchText);
+    }
+    console.log(search);
 
     return (
         <div>
@@ -56,34 +77,39 @@ const AllTest = () => {
                 heading={"All Test"}
                 subHeading={"Find Your Test"}
             ></SectionTitle>
-            <div>
-                <h2>the: {test.length}</h2>
-            </div>
+
 
             <div className='container px-6 py-10 mx-auto min-h-[calc(100vh-306px)] flex flex-col justify-between'>
                 <div>
                     <div className='flex flex-col md:flex-row justify-center items-center gap-5 '>
                         <div>
                             <select
-                                name='category'
-                                id='category'
+                                onChange={e => {
+                                    setFilter(e.target.value)
+                                    setCurrentPage(1)
+                                }}
+                                value={filter}
+                                name='duration'
+                                id='duration'
                                 className='border p-4 rounded-lg'
                             >
-                                <option value=''>Filter By Category</option>
-                                <option value='Web Development'>Web Development</option>
-                                <option value='Graphics Design'>Graphics Design</option>
-                                <option value='Digital Marketing'>Digital Marketing</option>
+                                <option value=''>Filter By Duration</option>
+                                <option value='30 minutes'>30 minutes</option>
+                                <option value='45 minutes'>45 minutes</option>
+                                <option value='50 minutes'>50 minutes</option>
                             </select>
                         </div>
 
-                        <form>
+                        <form onSubmit={handleSearch}>
                             <div className='flex p-1 overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300'>
                                 <input
                                     className='px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent'
                                     type='text'
                                     name='search'
-                                    placeholder='Enter Job Title'
-                                    aria-label='Enter Job Title'
+                                    onChange={e => setSearchText(e.target.value)}
+                                    value={searchText}
+                                    placeholder='Enter test Title'
+                                    aria-label='Enter test Title'
                                 />
 
                                 <button className='px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none'>
@@ -93,8 +119,13 @@ const AllTest = () => {
                         </form>
                         <div>
                             <select
-                                name='category'
-                                id='category'
+                                onChange={e => {
+                                    setSort(e.target.value)
+                                    setCurrentPage(1)
+                                }}
+                                value={sort}
+                                name='sort'
+                                id='sort'
                                 className='border p-4 rounded-md'
                             >
                                 <option value=''>Sort By Deadline</option>
@@ -102,11 +133,11 @@ const AllTest = () => {
                                 <option value='asc'>Ascending Order</option>
                             </select>
                         </div>
-                        <button className='btn'>Reset</button>
+                        <button onClick={handleReset} className='btn'>Reset</button>
                     </div>
                     <div className="mt-6 grid md:grid-cols-2 gap-10">
                         {
-                            test?.map(item => <TestCard
+                            allTest?.map(item => <TestCard
                                 key={item._id}
                                 item={item}
                             ></TestCard>)
@@ -116,7 +147,10 @@ const AllTest = () => {
                 {/* pagination section */}
                 <div className='flex justify-center mt-12'>
                     {/* previous button */}
-                    <button className='px-4 py-2 mx-1 text-gray-700 disabled:text-gray-500 capitalize bg-gray-200 rounded-md disabled:cursor-not-allowed disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:bg-blue-500  hover:text-white'>
+                    <button
+                        disabled={currentPage === 1}
+                        onClick={() => handlePaginationButton(currentPage - 1)}
+                        className='px-4 py-2 mx-1 text-gray-700 disabled:text-gray-500 capitalize bg-gray-200 rounded-md disabled:cursor-not-allowed disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:bg-blue-500  hover:text-white'>
                         <div className='flex items-center -mx-1'>
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
@@ -139,15 +173,18 @@ const AllTest = () => {
                     {/* Numbers */}
                     {pages.map(btnNum => (
                         <button
-                        onClick={() => handlePaginationButton(btnNum) }
+                            onClick={() => handlePaginationButton(btnNum)}
                             key={btnNum}
-                            className={`hidden px-4 py-2 mx-1 transition-colors duration-300 transform  rounded-md sm:inline hover:bg-blue-500  hover:text-white`}
+                            className={`hidden ${currentPage === btnNum ? 'bg-blue-500 text-white' : ''} px-4 py-2 mx-1 transition-colors duration-300 transform  rounded-md sm:inline hover:bg-blue-500  hover:text-white`}
                         >
                             {btnNum}
                         </button>
                     ))}
                     {/* Next button */}
-                    <button className='px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-gray-200 rounded-md hover:bg-blue-500 disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:text-white disabled:cursor-not-allowed disabled:text-gray-500'>
+                    <button
+                        disabled={currentPage === numberOfPage}
+                        onClick={() => handlePaginationButton(currentPage + 1)}
+                        className='px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-gray-200 rounded-md hover:bg-blue-500 disabled:hover:bg-gray-200 disabled:hover:text-gray-500 hover:text-white disabled:cursor-not-allowed disabled:text-gray-500'>
                         <div className='flex items-center -mx-1'>
                             <span className='mx-1'>Next</span>
 
