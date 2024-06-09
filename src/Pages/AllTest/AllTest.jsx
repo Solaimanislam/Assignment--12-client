@@ -19,11 +19,12 @@ const AllTest = () => {
 
     useEffect(() => {
         const getCount = async () => {
-            const {data} = await axios(`http://localhost:5000/all-test?`)
-            setCount(data.count)
+            const {data} = await axios(`http://localhost:5000/all-test?page=${currentPage}&size=${itemsPerPage}`)
+            console.log(data);
+            setCount(data)
         }
         getCount();
-    }, [])
+    }, [currentPage, itemsPerPage])
 
 
     useEffect(() => {
@@ -39,6 +40,12 @@ const AllTest = () => {
 
     const pages = [...Array(numberOfPage).keys()].map(element => element + 1);
     // const pages = [1, 2, 3, 4, 5];
+
+    // handle pagination 
+    const handlePaginationButton = (value) => {
+        console.log(value);
+        setCurrentPage(value);
+    }
 
     return (
         <div>
@@ -132,6 +139,7 @@ const AllTest = () => {
                     {/* Numbers */}
                     {pages.map(btnNum => (
                         <button
+                        onClick={() => handlePaginationButton(btnNum) }
                             key={btnNum}
                             className={`hidden px-4 py-2 mx-1 transition-colors duration-300 transform  rounded-md sm:inline hover:bg-blue-500  hover:text-white`}
                         >

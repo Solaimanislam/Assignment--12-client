@@ -3,19 +3,21 @@ import logImg from '../../assets/login.jpg';
 import Swal from 'sweetalert2';
 import { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SocialLogin from '../../Components/SocialLogin/SocialLogin';
 import useAdmin from '../../Hooks/useAdmin';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import useAxiosPublic from '../../Hooks/useAxiosPublic';
 
 const Login = () => {
 
-    const { signIn, loading } = useContext(AuthContext);
+    const { signIn } = useContext(AuthContext);
     const navigate = useNavigate();
     // const location = useLocation();
     const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
     const [isAdmin] = useAdmin();
-    
+
 
     // const from = location.state?.from?.pathname || "/dashboard/profile";
     // const fromAdmin = location.state?.from?.pathname || "/dashboard/users";
@@ -48,27 +50,28 @@ const Login = () => {
                     }
                 });
                 // console.log(isAdmin);
-                axiosSecure.post('/jwt')
-                .then(res => {
-                    console.log(res.data);
-                })
-                 axiosSecure.get(`/users/admin/${user.email}`)
-                .then(res => {
-                    console.log(res.data);
-                    if(isAdmin){
-                        navigate('/dashboard/users')
-                        loading
-                    }
-                    else {
-                        navigate('/dashboard/profile')
-                        loading
-                    }
-                })
+                axiosPublic.post('/jwt')
+                    .then(res => {
+                        console.log(res.data);
+                        axiosSecure.get(`/users/admin/${user.email}`)
+                            .then(res => {
+                                console.log(res.data);
+                                if (res.data.admin) {
+                                    navigate('/dashboard/users')
+                                    
+                                }
+                                else {
+                                    navigate('/dashboard/profile')
+                                    
+                                }
+                            })
+                    })
+
                 console.log(isAdmin);
-                
+
                 // console.log(res.data);
                 // return res.data?.admin;
-                
+
             })
     }
 

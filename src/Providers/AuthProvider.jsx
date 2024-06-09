@@ -59,10 +59,10 @@ const AuthProvider = ({ children }) => {
             } else {
                 // Todo: remove token (if token stored in the client side ) 
                 localStorage.removeItem('access-token');
-                setLoading(false);
+                
 
             }
-            
+            setLoading(false);
         });
         return () => {
             return unSubscribe();

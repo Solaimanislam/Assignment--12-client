@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 
 const TestCard = ({ item }) => {
-    console.log(item);
+    // console.log(item);
 
     const { _id, image, title, short_description, date, slots } = item;
 
