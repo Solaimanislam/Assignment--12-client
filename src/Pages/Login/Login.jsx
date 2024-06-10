@@ -8,6 +8,7 @@ import SocialLogin from '../../Components/SocialLogin/SocialLogin';
 import useAdmin from '../../Hooks/useAdmin';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import axios from 'axios';
 
 const Login = () => {
 
@@ -53,17 +54,16 @@ const Login = () => {
                 axiosPublic.post('/jwt')
                     .then(res => {
                         console.log(res.data);
-                        axiosSecure.get(`/users/admin/${user.email}`)
+                        localStorage.setItem('access-token', res.data.token)
+
+                        axiosSecure.get(`/users/admin/${user.email}`, {headers: {Authorization: `Bearer ${res.data.token}`}})
                             .then(res => {
+                                navigate('/dashboard/users')
                                 console.log(res.data);
-                                if (res.data.admin) {
-                                    navigate('/dashboard/users')
-                                    
-                                }
-                                else {
-                                    navigate('/dashboard/profile')
-                                    
-                                }
+                                
+                            })
+                            .catch(() => {
+                                navigate('/dashboard/profile')
                             })
                     })
 
