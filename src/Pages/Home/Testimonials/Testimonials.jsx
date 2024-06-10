@@ -19,7 +19,7 @@ const Testimonials = () => {
 
     axiosPublic.get('reviews')
     .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         setReviews(res.data)
     })
 

@@ -4,11 +4,14 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { FaUsers } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import jsPDF from "jspdf";
+
 
 
 const AllUsers = () => {
 
     const axiosSecure = useAxiosSecure();
+    const doc = new jsPDF();
 
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
@@ -54,6 +57,11 @@ const AllUsers = () => {
             })
     }
 
+    const handleDownload = () => {
+        // console.log('clicked');
+        doc.save("users");
+    }
+
     return (
         <div>
             <Helmet>
@@ -96,7 +104,7 @@ const AllUsers = () => {
                                 </td>
                                 <td>
                                     <button
-
+                                    onClick={handleDownload}
                                         className="btn btn-ghost btn-md bg-orange-600">Download</button>
                                 </td>
                             </tr>)

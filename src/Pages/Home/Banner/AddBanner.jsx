@@ -28,7 +28,7 @@ const AddBanner = () => {
         if(res.data.success){
              // now send the banner item data to the server with the image 
              const bannerItem = {
-                email: user?.email,
+                email: data.user?.email,
                 title: data.title,
                 price: parseFloat(data.price),
                 couponCode: data.couponCode,

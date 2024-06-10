@@ -8,7 +8,7 @@ import axios from "axios";
 
 const AllTest = () => {
 
-    const [itemsPerPage, setItemsPerPage] = useState(4);
+    const [itemsPerPage, setItemsPerPage] = useState(2);
     const [count, setCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [test] = useTest();
@@ -35,8 +35,8 @@ const AllTest = () => {
 
     useEffect(() => {
         const getCount = async () => {
-            const { data } = await axios(`http://localhost:5000/test-count?filter=${filter}&search=${search}`)
-            setCount(data.count)
+            // const { data } = await axios(`http://localhost:5000/test-count?filter=${filter}&search=${search}`)
+            // setCount(data.count)
         }
         getCount();
     }, [filter, search])
@@ -57,8 +57,8 @@ const AllTest = () => {
     const handleReset = () => {
         setFilter('')
         setSort('')
-        setSearch('')
-        setSearchText('')
+        // setSearch('')
+        // setSearchText('')
     }
 
     const handleSearch = e => {
@@ -82,7 +82,7 @@ const AllTest = () => {
             <div className='container px-6 py-10 mx-auto min-h-[calc(100vh-306px)] flex flex-col justify-between'>
                 <div>
                     <div className='flex flex-col md:flex-row justify-center items-center gap-5 '>
-                        <div>
+                        {/* <div>
                             <select
                                 onChange={e => {
                                     setFilter(e.target.value)
@@ -98,7 +98,7 @@ const AllTest = () => {
                                 <option value='45 minutes'>45 minutes</option>
                                 <option value='50 minutes'>50 minutes</option>
                             </select>
-                        </div>
+                        </div> */}
 
                         <form onSubmit={handleSearch}>
                             <div className='flex p-1 overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300'>
@@ -121,6 +121,7 @@ const AllTest = () => {
                             <select
                                 onChange={e => {
                                     setSort(e.target.value)
+                                    console.log(e.target.value);
                                     setCurrentPage(1)
                                 }}
                                 value={sort}

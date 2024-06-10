@@ -22,6 +22,8 @@ import Payment from "../Pages/Dashboard/Payment/Payment";
 import AddBanner from "../Pages/Home/Banner/AddBanner";
 import AllBanner from "../Pages/Home/Banner/AllBanner";
 import Statistics from "../Pages/Dashboard/Statistics/Statistics";
+import Blogs from "../Pages/Blogs/Blogs";
+import TestResult from "../Pages/Dashboard/TestResult/TestResult";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path: 'signup',
         element: <SignUp></SignUp>
+      },
+      {
+        path: 'blogs',
+        element: <Blogs></Blogs>
       },
       {
         path: 'test',
@@ -101,6 +107,10 @@ export const router = createBrowserRouter([
         path: 'payment/:id',
         element: <Payment></Payment>
 
+      },
+      {
+        path: 'result',
+        element: <TestResult></TestResult>
       }
       
     ]
