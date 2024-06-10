@@ -24,7 +24,7 @@ const AllTest = () => {
     useEffect(() => {
         const getCount = async () => {
             console.log(itemsPerPage, currentPage);
-            const { data } = await axios(`http://localhost:5000/all-test?page=${currentPage}&size=${itemsPerPage}&filter=${filter}&sort=${sort}&search=${search}`)
+            const { data } = await axios(`https://assignment-12-server-orcin-gamma.vercel.app/all-test?page=${currentPage}&size=${itemsPerPage}&filter=${filter}&sort=${sort}&search=${search}`)
             setAllTest(data);
             console.log(data);
 
@@ -35,7 +35,7 @@ const AllTest = () => {
 
     useEffect(() => {
         const getCount = async () => {
-            // const { data } = await axios(`http://localhost:5000/test-count?filter=${filter}&search=${search}`)
+            // const { data } = await axios(`https://assignment-12-server-orcin-gamma.vercel.app/test-count?filter=${filter}&search=${search}`)
             // setCount(data.count)
         }
         getCount();

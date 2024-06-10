@@ -24,6 +24,7 @@ import AllBanner from "../Pages/Home/Banner/AllBanner";
 import Statistics from "../Pages/Dashboard/Statistics/Statistics";
 import Blogs from "../Pages/Blogs/Blogs";
 import TestResult from "../Pages/Dashboard/TestResult/TestResult";
+import Appointment from "../Pages/Dashboard/Appointment/Appointment";
 
 export const router = createBrowserRouter([
   {
@@ -54,7 +55,7 @@ export const router = createBrowserRouter([
       {
         path: 'details/:_id',
         element: <PrivateRoutes><Details></Details></PrivateRoutes>,
-        loader: () => fetch('http://localhost:5000/test')
+        loader: () => fetch('https://assignment-12-server-orcin-gamma.vercel.app/test')
       }
 
     ]
@@ -95,7 +96,7 @@ export const router = createBrowserRouter([
       {
         path: 'updateItem/:id',
         element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/test/${params.id}`)
+        loader: ({params}) => fetch(`https://assignment-12-server-orcin-gamma.vercel.app/test/${params.id}`)
       },
 
       // user routes
@@ -111,6 +112,10 @@ export const router = createBrowserRouter([
       {
         path: 'result',
         element: <TestResult></TestResult>
+      },
+      {
+        path: 'appointments',
+        element: <Appointment></Appointment>
       }
       
     ]

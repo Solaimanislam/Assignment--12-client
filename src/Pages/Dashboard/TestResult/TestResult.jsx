@@ -31,7 +31,7 @@ const TestResult = () => {
                             <th>Price</th>
                             <th>Status</th>
                             <th>Delete</th>
-                            <th>Action</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
